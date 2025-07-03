@@ -1,0 +1,28 @@
+import csv
+from datetime import datetime
+import os
+
+# Ask user for inputs
+print("📊 Welcome to your Digital Habit Tracker")
+phone = input("Hours on phone today: ")
+study = input("Hours studied today: ")
+sleep = input("Hours slept last night: ")
+mood = input("How was your mood today (1-10)? ")
+
+# Get today's date and time
+now = datetime.now()
+date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+# Define the CSV file name
+filename = "tracker.csv"
+
+# Check if the file exists, if not add headers
+file_exists = os.path.isfile(filename)
+
+with open(filename, 'a', newline='') as file:
+    writer = csv.writer(file)
+    if not file_exists:
+        writer.writerow(["DateTime", "Phone Hours", "Study Hours", "Sleep Hours", "Mood (1-10)"])
+    writer.writerow([date_time, phone, study, sleep, mood])
+
+print("\n✅ Entry saved! Keep up the good work.")
